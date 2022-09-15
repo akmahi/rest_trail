@@ -20,4 +20,7 @@ from pill import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('registor/', views.register, name='register'),
+    path('save/', views.save_user, name='save_user'),
+    path('login/', views.login_page, name='login_page'),
+    path('home/', views.home, name='home'),
 ]
