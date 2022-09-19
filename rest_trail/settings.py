@@ -52,7 +52,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -84,13 +84,19 @@ WSGI_APPLICATION = 'rest_trail.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': DBNAME,  # Or path to database file if using sqlite3.
-        'USER': USER,  # Not used with sqlite3.
-        'PASSWORD': PASSWORD,  # Not used with sqlite3.
-        'HOST': HOST,  # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '3306',  # Set to empty string for default. Not used with sqlite3.
+        # 'ENGINE': 'django.db.backends.mysql',
+        # # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        # 'NAME': DBNAME,  # Or path to database file if using sqlite3.
+        # 'USER': USER,  # Not used with sqlite3.
+        # 'PASSWORD': PASSWORD,  # Not used with sqlite3.
+        # 'HOST': HOST,  # Set to empty string for localhost. Not used with sqlite3.
+        # 'PORT': '3306',  # Set to empty string for default. Not used with sqlite3.
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'django_rst',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'localhost',
+        'PORT': 5432,
     }
 }
 

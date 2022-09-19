@@ -16,20 +16,20 @@ from django.contrib.contenttypes.models import ContentType
 def create_profile(email, role):
     creators, created = Group.objects.get_or_create(name='Creator')
     subscribers, created = Group.objects.get_or_create(name='Subscriber')
-    ct = ContentType.objects.get_for_model(User)
-    p_add = Permission.objects.create(codename ='ppadd', name ='Can ppadd', content_type = ct)
-    p_edit = Permission.objects.create(codename ='pedit', name ='Can pedit', content_type = ct)
-    p_view = Permission.objects.create(codename ='pview', name ='Can pview', content_type = ct)
-    p_delete = Permission.objects.create(codename ='pdelete', name ='Can pdelete', content_type = ct)
-    creator_permissions = [
-        p_add,
-        p_edit,
-        p_view,
-        p_delete,
-    ]
-    creators.permissions.set(creator_permissions)
-    subscribers.permissions.add(p_view)
+    # ct = ContentType.objects.get_for_model(User)
+    # p_add = Permission.objects.create(codename ='ppadd', name ='Can ppadd', content_type = ct)
+    # p_edit = Permission.objects.create(codename ='pedit', name ='Can pedit', content_type = ct)
+    # p_view = Permission.objects.create(codename ='pview', name ='Can pview', content_type = ct)
+    # p_delete = Permission.objects.create(codename ='pdelete', name ='Can pdelete', content_type = ct)
+    # creator_permissions = [
+    #     p_add,
+    #     p_edit,
+    #     p_view,
+    #     p_delete,
+    # ]
+    # creators.permissions.set(creator_permissions)
+    # subscribers.permissions.add(p_view)
     if role == 'CREATOR':
         creators.user_set.add(User.objects.get(email=email))
     else:
-        creators.user_set.add(User.objects.get(email=email))
+        subscribers.user_set.add(User.objects.get(email=email))

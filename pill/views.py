@@ -43,9 +43,15 @@ def save_user(request):
     return render(request, 'auth/register.html', {'form': {}})
 
 @login_required()
+
 def home(request):
     print (request.user.has_perm('ppview'))
-    return HttpResponse(json.dumps({"msg":request.user.has_perm('ppview')}))
+    superusers = User.objects.filter(is_superuser=True)
+    print(superusers)
+    if request.user.has_perm('ppadd') :
+        return HttpResponse(json.dumps({"msg":request.user.has_perm('ppadd')}))
+    else:
+        return redirect('login_page')
 
 from . import forms
 from django.contrib.auth import login, authenticate  # add to imports
