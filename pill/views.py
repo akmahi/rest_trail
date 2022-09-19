@@ -1,11 +1,10 @@
 import json
-
-from django.shortcuts import render, redirect
+from django.contrib.auth.models import Permission
+from django.shortcuts import render, redirect, get_list_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm
 from .models import User
-from .signals import create_profile
 from django.http import HttpResponse
 
 def register(request):
@@ -32,7 +31,7 @@ def save_user(request):
             if form.is_valid():
                 form.save()
                 print("hiii")
-                create_profile(request.POST.get('email'), request.POST.get('role'))
+                # create_profile(request.POST.get('email'), request.POST.get('role'))
                 print("AA")
                 messages.success(request, f'Your account has been created! You are now able to log in')
                 return redirect('home')
@@ -43,13 +42,15 @@ def save_user(request):
     return render(request, 'auth/register.html', {'form': {}})
 
 @login_required()
-
 def home(request):
-    print (request.user.has_perm('ppview'))
-    superusers = User.objects.filter(is_superuser=True)
+    print (request.user.has_perm('Can pedit'))
+    permissions = Permission.objects.filter(user=request.user)
+    print(permissions[0].name)
+    print(permissions[0].id)
+    superusers = get_list_or_404(User, is_superuser=True)
     print(superusers)
-    if request.user.has_perm('ppadd') :
-        return HttpResponse(json.dumps({"msg":request.user.has_perm('ppadd')}))
+    if request.user.has_perm('can pedit') :
+        return HttpResponse(json.dumps({"msg":request.user.has_perm('can pedit')}))
     else:
         return redirect('login_page')
 
